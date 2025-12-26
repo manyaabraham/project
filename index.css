@@ -1,18 +1,22 @@
 body{
-    margin: o;
+    margin: 0;
     padding: 0;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    min-height: 100dvh;
     min-width: auto;
-    color:black;
-background-image: linear-gradient(90deg, #a5a1f3, #6161e7, #a5a1f3);}
+    color:rgb(255, 255, 255);
+}
 h1{
-    color: #f3eeee;
+    color: #eaf7c7;
     text-align: center;
     padding-top: 5px 0;
     font: 35px 'Arial Black', Gadget, sans-serif;
 }
 
+div{
+    height: 100dvh;
+    width: 100%;
+
+}
 .tagline{
     color: #f3eeee;
     text-align: center;
@@ -20,8 +24,20 @@ h1{
     font-weight: bold;
     margin-bottom: px;
 }
+
+.links{
+   margin-left: auto;
+    padding-right: 30px;
+    box-sizing: border-box;
+    justify-items: center;
+    margin-bottom: 20px;
+}
 header{
-   background-image: linear-gradient(180deg, #a5a1f3, #6161e7, #a5a1f3);
+      background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp7ZECSpLNI0K5fyQghdq6uKfWQQGgwLooMw&s);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: scroll;
     box-shadow: 0 0 20px rgba(110, 110, 110, 0.1);   
     width: 100%;
     border-radius: 8px;
@@ -88,154 +104,27 @@ a:active{
     background-color: #9fb4ee;
 }       
 
-footer{
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);   
-    width: 100%;
-    box-sizing: border-box; 
-    text-align: center;
-    padding: 10px 0;    
-    display: flex;
-    flex-direction: row;
-    align-items: center;            
-    justify-content: center;
-}
-
-.tile{
-    background-color: #b7affa;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.2s;
-    height: 40%; 
-    width: 35%;
-}
-.tile:hover{
-    transform: scale(1.05);
-}
-div:hover{
-    transform: scale(1.02);
-}
-.get-started{
-    text-align: left;
-    margin: 20px 0;
-    justify-content: left;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-}
-footer img{
-    width: 35px;
-    height: 435x;
-    border-radius: 10%;
-    box-shadow: 0 0 5px rgba(158, 157, 157, 0.1);     
-}   
-footer a{
-    width: auto;
-    margin: 0 10px;
-    display: flex;
-    align-items: center;
-}
-footer a:hover img{
-    transform: scale(1.1);
-    transition-delay: 0.1s;
-    transition-duration: 0.2s;
-}
-form{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.course-course{
-    display: flex;
-    flex-direction: row;
-    gap: 0px;
-    padding: 10px;
-}
-
-.enroll-btn {
-    background: linear-gradient(135deg, #8b80ec, #6a5acd);
+.Get{
+    background-color: #4CAF50;
     color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-weight: 600;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top:50px ;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-    width: 100%;
+    border-radius: 12px;
 }
-
-.enroll-btn:hover {
-    background: linear-gradient(135deg, #6a5acd, #8b80ec);
-    transform: scale(1.05);
+.Get:hover{
+    background-color: #45a049;
+}   
+.Get:active{
+    background-color: #3e8e41;
 }
-
-.links{
-    margin-left: auto;
-    gap: 20px;
-    padding-right: 30px;
-}
-
-.image {
-    width: 70%px;
-    height: 400px;
-    border-radius: 10%;
-    box-shadow: 0 0 10px rgba(158, 157, 157, 0.1);     
-    padding: 5px;
-}
-.about-us{
-    height: 100dvh;
-}
-
-.course{
-    width: 35%;
-    height: max-content;
-    box-sizing: border-box;
-    padding: 10px;  
-}
-.course img{
-    width: 50%;
-    height: 50%;
-    border-radius: 10%;
-    box-shadow: 0 0 10px rgba(158, 157, 157, 0.1);     
-    padding: 5px;
-}
-
-.courses-section{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.cards{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-    .about{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    height: 100dvh;
-}
-
-.image1 {
-    width: 120%;
-    height: 450px;
-    border-radius: 10%;
-    box-shadow: 0 0 10px rgba(158, 157, 157, 0.1);     
-    padding: 5px;
+.get-started p{
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 20px 0;
+    border-radius: 20px;
 }
