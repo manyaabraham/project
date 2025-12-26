@@ -1,67 +1,82 @@
 body{
-    margin: 10px;
+    margin: o;
     padding: 0;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     min-height: 100dvh;
+    min-width: auto;
     color:black;
-}
+background-image: linear-gradient(90deg, #a5a1f3, #6161e7, #a5a1f3);}
 h1{
     color: #f3eeee;
     text-align: center;
-    padding: 20px 0;
+    padding-top: 5px 0;
+    font: 35px 'Arial Black', Gadget, sans-serif;
+}
 
+.tagline{
+    color: #f3eeee;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: px;
 }
 header{
-    background: #8b80ec;
+   background-image: linear-gradient(180deg, #a5a1f3, #6161e7, #a5a1f3);
     box-shadow: 0 0 20px rgba(110, 110, 110, 0.1);   
     width: 100%;
-    box-sizing: border-box; }
+    border-radius: 8px;
+    padding: 5px ;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px 0;
+    height: 100dvh;
+}
     
-header img, .tile img  {
+
+header img  {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 90px;
-    height: 90px;
+    width: 120px;
+    height: 120px;
     border-radius: 20%;
     box-shadow: 0 0 10px rgba(158, 157, 157, 0.1);     
-    
+    padding: 10px;
+}         
+
+.tile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 15%;
+    box-shadow: 0 0 10px rgba(158, 157, 157, 0.1);     
+    padding: 10px;
 }
-nav{
-    background: #8b80ec;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);   
-    width: 100%;
-    box-sizing: border-box; 
-    display: flex;
-    flex-direction: row;
-    align-items: left;
-    justify-content: right;
-    padding: 5px 0;
-}                                       
+
 div{
-    padding: 20px;
+    padding: 30px;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    width: 100%;
+    border-radius: 10px;
+    height: max-content;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
     text-align: center;
 }
 a{
-    color: #03ff03;
+    color: #75f875;
     text-decoration: none;
-   
     border-radius: 5px;
     padding: 5px;
-    margin: 5px;
-    width: 100px;
+    margin-top: auto;
+    width: auto;
+    height: max-content;
     box-sizing: border-box;
     font-weight: bold;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    flex-direction: row;
-        display: flex;
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: auto;
 }
 a:hover{
     background-color: aliceblue;
@@ -86,16 +101,13 @@ footer{
 }
 
 .tile{
-    background-color: #8b80ec;
+    background-color: #b7affa;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.2s;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
-    margin: 10px;
+    height: 40%; 
+    width: 35%;
 }
 .tile:hover{
     transform: scale(1.05);
@@ -134,4 +146,96 @@ form{
     align-items: center;
     justify-content: center;
     gap: 10px;
+}
+
+.course-course{
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    padding: 10px;
+}
+
+.enroll-btn {
+    background: linear-gradient(135deg, #8b80ec, #6a5acd);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.enroll-btn:hover {
+    background: linear-gradient(135deg, #6a5acd, #8b80ec);
+    transform: scale(1.05);
+}
+
+.links{
+    margin-left: auto;
+    gap: 20px;
+    padding-right: 30px;
+}
+
+.image {
+    width: 70%px;
+    height: 400px;
+    border-radius: 10%;
+    box-shadow: 0 0 10px rgba(158, 157, 157, 0.1);     
+    padding: 5px;
+}
+.about-us{
+    height: 100dvh;
+}
+
+.course{
+    width: 35%;
+    height: max-content;
+    box-sizing: border-box;
+    padding: 10px;  
+}
+.course img{
+    width: 50%;
+    height: 50%;
+    border-radius: 10%;
+    box-shadow: 0 0 10px rgba(158, 157, 157, 0.1);     
+    padding: 5px;
+}
+
+.courses-section{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.cards{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+    .about{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    height: 100dvh;
+}
+
+.image1 {
+    width: 120%;
+    height: 450px;
+    border-radius: 10%;
+    box-shadow: 0 0 10px rgba(158, 157, 157, 0.1);     
+    padding: 5px;
 }
