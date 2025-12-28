@@ -1,3 +1,4 @@
+/* pay.css - copied from index.css for consistent styling */
 * {
   margin: 0;
   padding: 0;
@@ -109,17 +110,42 @@ header h1 {
   box-shadow: 0 8px 20px rgba(27, 82, 170, 0.4);
 }
 
-/* RESPONSIVE */
-@media (max-width: 480px) {
-  header h1 {
-    font-size: 22px;
-  }
+/* Payment page specific layout */
+.payment-section{
+  width:100%;
+  max-width:1100px;
+  margin:30px auto;
+}
+.payment-container{
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:24px;
+  align-items:start;
+}
+.payment-header{grid-column:1/-1;text-align:center}
+.payment-success h2{color:#d1e7ff;margin-top:8px}
 
-  .get-started {
-    padding: 22px;
-  }
+.payment-info{background:#081657;padding:20px;border-radius:12px;color:#cbd5f5}
+.verification-form{background:#081657;padding:20px;border-radius:12px;color:#cbd5f5}
 
-  .get-started p {
-    font-size: 14px;
-  }
+.payment-method{background:#0b1a3a;padding:12px;border-radius:10px;margin-bottom:12px;cursor:pointer}
+.payment-method.active{box-shadow:0 8px 30px rgba(16,24,40,0.4);border:1px solid rgba(255,255,255,0.04)}
+.method-header{display:flex;align-items:center;gap:10px}
+.method-header h4{margin:0}
+
+.form-group{margin-bottom:12px;text-align:left}
+.form-group label{display:block;margin-bottom:6px;color:#cbd5f5}
+.form-control{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff}
+
+.btn{display:inline-block;padding:10px 16px;border-radius:8px;border:none;background:linear-gradient(135deg,#214ba5,#3069c4);color:#fff;cursor:pointer}
+.btn-full{width:100%}
+
+.message-alert{max-width:640px;margin:12px auto}
+
+@media (max-width:900px){
+  .payment-container{grid-template-columns:1fr}
+}
+
+@media (max-width:480px){
+  header img{width:72px;height:72px}
 }

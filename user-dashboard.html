@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+    <h2>User Dashboard</h2>
+    <a href="pricing.html" class="btn">Upgrade Plan</a>
+</header>
+
+<main class="container">
+    <div class="card">
+        <h3>Welcome, Student</h3>
+        <p>Your current plan: <strong>Starter</strong></p>
+    </div>
+
+    <div class="card">
+        <h3>Available Services</h3>
+        <ul>
+            <li>IME Practice</li>
+            <li>Basic Tutorials</li>
+            <li>Progress Tracking</li>
+        </ul>
+    </div>
+</main>
+
+<script src="script.js">
+supabase.auth.getUser().then(({ data }) => {
+    if (!data.user) {
+        window.location.href = "login.html";
+    }
+});
+</script>
+</body>
+</html>

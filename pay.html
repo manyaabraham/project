@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="pay.css">
+</head>
+<body>
+    <!-- Payment Content -->
+    <section class="payment-section">
+        <div class="container">
+            <div class="payment-container">
+                <div class="payment-header">
+                    <div class="payment-success">
+                        <i class="fas fa-check-circle"></i>
+                        <h2>Registration Successful!</h2>
+                        <p>Complete your payment to access all courses</p>
+                    </div>
+                </div>
+
+                <div class="payment-content">
+                    <div class="payment-info">
+                        <h3>Payment Instructions</h3>
+                        <div class="payment-methods">
+                            <div class="payment-method active">
+                                <div class="method-header">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <h4>Mobile Money</h4>
+                                </div>
+                                <div class="method-details">
+                                    <p><strong>Send UGX 50,000 to:</strong></p>
+                                    <div class="payment-number">
+                                        <span>0751 234 567</span>
+                                        <button class="btn-copy" data-number="0751234567">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                    <p><strong>Account Name:</strong> iMecode Academy</p>
+                                </div>
+                            </div>
+
+                            <div class="payment-method">
+                                <div class="method-header">
+                                    <i class="fas fa-university"></i>
+                                    <h4>Bank Transfer</h4>
+                                </div>
+                                <div class="method-details">
+                                    <p><strong>Bank Details:</strong></p>
+                                    <div class="bank-info">
+                                        <p><strong>Bank:</strong> Centenary Bank</p>
+                                        <p><strong>Account:</strong> 1234567890</p>
+                                        <p><strong>Name:</strong> iMecode Academy Ltd</p>
+                                        <p><strong>Branch:</strong> Kampala Main</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-note">
+                            <i class="fas fa-info-circle"></i>
+                            <p>After making payment, enter your transaction details below for verification. Access will be granted within 24 hours.</p>
+                        </div>
+                    </div>
+
+                    <div class="verification-form">
+                        <h3>Verify Your Payment</h3>
+                        <form id="paymentForm">
+                            <div class="form-group">
+                                <label for="phoneNumber">Phone Number Used</label>
+                                <input type="tel" id="phoneNumber" class="form-control" placeholder="e.g., 0751234567" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transactionId">Transaction ID</label>
+                                <input type="text" id="transactionId" class="form-control" placeholder="Enter transaction ID from payment" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="paymentAmount">Amount Paid (UGX)</label>
+                                <input type="number" id="paymentAmount" class="form-control" placeholder="45000" value="45000" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="paymentDate">Payment Date</label>
+                                <input type="date" id="paymentDate" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="confirmPayment" required>
+                                    <span class="checkmark"></span>
+                                    I confirm that I have made the payment as instructed
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <i class="fas fa-check-circle"></i> Verify Payment
+                            </button> help me create a js to approve the payment and relocate to dashboard.html
+
+                            <script>
+                                // Payment verification and redirection script
+document.addEventListener('DOMContentLoaded', function() {
+    // Set today's date as default for payment date
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('paymentDate').value = today;
+    
+    // Copy phone number functionality
+    const copyButton = document.querySelector('.btn-copy');
+    if (copyButton) {
+        copyButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            const phoneNumber = this.getAttribute('data-number');
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(phoneNumber).then(function() {
+                // Show success feedback
+                const originalHTML = copyButton.innerHTML;
+                copyButton.innerHTML = '<i class="fas fa-check"></i>';
+                copyButton.style.backgroundColor = '#28a745';
+                
+                setTimeout(function() {
+                    copyButton.innerHTML = originalHTML;
+                    copyButton.style.backgroundColor = '';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy phone number. Please copy manually: ' + phoneNumber);
+            });
+        });
+    }
+    
+    // Payment method selection
+    const paymentMethods = document.querySelectorAll('.payment-method');
+    paymentMethods.forEach(method => {
+        method.addEventListener('click', function() {
+            // Remove active class from all methods
+            paymentMethods.forEach(m => m.classList.remove('active'));
+            // Add active class to clicked method
+            this.classList.add('active');
+        });
+    });
+    
+    // Form submission handler
+    const paymentForm = document.getElementById('paymentForm');
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate form
+            if (validatePaymentForm()) {
+                verifyPayment();
+            }
+        });
+    }
+    
+    // Form validation
+    function validatePaymentForm() {
+        const phoneNumber = document.getElementById('phoneNumber').value.trim();
+        const transactionId = document.getElementById('transactionId').value.trim();
+        const paymentAmount = document.getElementById('paymentAmount').value;
+        const paymentDate = document.getElementById('paymentDate').value;
+        const confirmPayment = document.getElementById('confirmPayment').checked;
+        
+        // Clear previous errors
+        clearErrors();
+        
+        let isValid = true;
+        
+        // Phone number validation (Ugandan format)
+        const phoneRegex = /^(07[0-9]{8}|\+2567[0-9]{8})$/;
+        if (!phoneRegex.test(phoneNumber)) {
+            showError('phoneNumber', 'Please enter a valid Ugandan phone number (e.g., 0751234567)');
+            isValid = false;
+        }
+        
+        // Transaction ID validation
+        if (transactionId.length < 5) {
+            showError('transactionId', 'Please enter a valid transaction ID');
+            isValid = false;
+        }
+        
+        // Amount validation
+        const amount = parseInt(paymentAmount);
+        if (isNaN(amount) || amount < 45000) {
+            showError('paymentAmount', 'Minimum payment amount is UGX 45,000');
+            isValid = false;
+        }
+        
+        // Date validation
+        if (!paymentDate) {
+            showError('paymentDate', 'Please select payment date');
+            isValid = false;
+        } else {
+            const selectedDate = new Date(paymentDate);
+            const today = new Date();
+            if (selectedDate > today) {
+                showError('paymentDate', 'Payment date cannot be in the future');
+                isValid = false;
+            }
+        }
+        
+        // Confirmation validation
+        if (!confirmPayment) {
+            showError('confirmPayment', 'Please confirm that you have made the payment');
+            isValid = false;
+        }
+        
+        return isValid;
+    }
+    
+    // Show error message
+    function showError(fieldId, message) {
+        const field = document.getElementById(fieldId);
+        const formGroup = field.closest('.form-group');
+        
+        // Remove existing error
+        const existingError = formGroup.querySelector('.error-message');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        // Add error styling
+        field.classList.add('error');
+        
+        // Create error message
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message';
+        errorElement.style.color = '#dc3545';
+        errorElement.style.fontSize = '0.875rem';
+        errorElement.style.marginTop = '0.25rem';
+        errorElement.textContent = message;
+        
+        formGroup.appendChild(errorElement);
+    }
+    
+    // Clear all errors
+    function clearErrors() {
+        const errorFields = document.querySelectorAll('.form-control.error');
+        errorFields.forEach(field => {
+            field.classList.remove('error');
+        });
+        
+        const errorMessages = document.querySelectorAll('.error-message');
+        errorMessages.forEach(message => {
+            message.remove();
+        });
+    }
+    
+    // Payment verification function
+    function verifyPayment() {
+        const submitButton = paymentForm.querySelector('button[type="submit"]');
+        const originalText = submitButton.innerHTML;
+        
+        // Show loading state
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying Payment...';
+        submitButton.disabled = true;
+        
+        // Get form data
+        const formData = {
+            phoneNumber: document.getElementById('phoneNumber').value.trim(),
+            transactionId: document.getElementById('transactionId').value.trim(),
+            paymentAmount: document.getElementById('paymentAmount').value,
+            paymentDate: document.getElementById('paymentDate').value,
+            paymentMethod: getSelectedPaymentMethod()
+        };
+        
+        // Simulate API call to verify payment
+        // In a real application, you would make an actual API call here
+        simulatePaymentVerification(formData)
+            .then(result => {
+                if (result.success) {
+                    // Payment verified successfully
+                    showSuccessMessage('Payment verified successfully! Redirecting to dashboard...');
+                    
+                    // Store payment verification in localStorage/sessionStorage
+                    storePaymentVerification(formData);
+                    
+                    // Redirect to dashboard after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 2000);
+                } else {
+                    // Payment verification failed
+                    showErrorMessage(result.message || 'Payment verification failed. Please check your details and try again.');
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Verification error:', error);
+                showErrorMessage('An error occurred during verification. Please try again.');
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            });
+    }
+    
+    // Get selected payment method
+    function getSelectedPaymentMethod() {
+        const activeMethod = document.querySelector('.payment-method.active h4');
+        return activeMethod ? activeMethod.textContent : 'Mobile Money';
+    }
+    
+    // Simulate payment verification (replace with actual API call)
+    function simulatePaymentVerification(formData) {
+        return new Promise((resolve) => {
+            // Simulate API delay
+            setTimeout(() => {
+                // Mock verification logic
+                // In real implementation, this would call your backend API
+                const isVerified = Math.random() > 0.3; // 70% success rate for demo
+                
+                if (isVerified) {
+                    resolve({
+                        success: true,
+                        message: 'Payment verified successfully'
+                    });
+                } else {
+                    resolve({
+                        success: false,
+                        message: 'Payment not found or details incorrect'
+                    });
+                }
+            }, 2000);
+        });
+    }
+    
+    // Store payment verification status
+    function storePaymentVerification(formData) {
+        const paymentInfo = {
+            verified: true,
+            verifiedAt: new Date().toISOString(),
+            ...formData
+        };
+        
+        // Store in localStorage
+        localStorage.setItem('paymentVerification', JSON.stringify(paymentInfo));
+        localStorage.setItem('isPaymentVerified', 'true');
+        
+        // Also store in sessionStorage for current session
+        sessionStorage.setItem('paymentVerified', 'true');
+    }
+    
+    // Show success message
+    function showSuccessMessage(message) {
+        showMessage(message, 'success');
+    }
+    
+    // Show error message
+    function showErrorMessage(message) {
+        showMessage(message, 'error');
+    }
+    
+    // Show message function
+    function showMessage(message, type) {
+        // Remove existing messages
+        const existingMessage = document.querySelector('.message-alert');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        // Create message element
+        const messageElement = document.createElement('div');
+        messageElement.className = `message-alert alert-${type}`;
+        messageElement.style.padding = '1rem';
+        messageElement.style.margin = '1rem 0';
+        messageElement.style.borderRadius = '0.375rem';
+        messageElement.style.fontWeight = '500';
+        
+        if (type === 'success') {
+            messageElement.style.backgroundColor = '#d4edda';
+            messageElement.style.color = '#155724';
+            messageElement.style.border = '1px solid #c3e6cb';
+        } else {
+            messageElement.style.backgroundColor = '#f8d7da';
+            messageElement.style.color = '#721c24';
+            messageElement.style.border = '1px solid #f5c6cb';
+        }
+        
+        messageElement.textContent = message;
+        
+        // Insert before the form
+        const form = document.getElementById('paymentForm');
+        form.parentNode.insertBefore(messageElement, form);
+        
+        // Auto-remove success messages after redirect
+        if (type === 'success') {
+            setTimeout(() => {
+                if (messageElement.parentNode) {
+                    messageElement.remove();
+                }
+            }, 5000);
+        }
+    }
+});
+
+// Add this CSS to your styles for better form validation
+const additionalStyles = `
+    .form-control.error {
+        border-color: #dc3545 !important;
+    }
+    
+    .checkbox input:not(:checked) ~ .checkmark {
+        border-color: #dc3545;
+    }
+    
+    .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+    
+    .payment-method {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .payment-method.active {
+        border-color: #007bff !important;
+        background-color: #f8f9fa;
+    }
+`;
+
+// Inject additional styles
+const styleSheet = document.createElement('style');
+styleSheet.textContent = additionalStyles;
+document.head.appendChild(styleSheet);
+                            </script>
+</body>
+</html>

@@ -14,126 +14,172 @@
 
   <style>
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Arial, sans-serif;
-    }
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
 
-    body {
-        background-image:linear-gradient(180deg , #132244, rgb(3, 3, 77));
-  color: #ffffff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
+      body {
+        background-image: linear-gradient(180deg, #132244, rgb(3, 3, 77));
+        color: #ffffff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
 
-    .container {
-      background-image: linear-gradient(to left, rgb(30, 30, 99), rgb(2, 2, 131));
-      width: 100%;
-      max-width: 420px;
-      border-radius: 16px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      padding: 20px;
-      margin-top: auto;
-      margin-bottom: auto;
-      font-size: larger;
-    }
+      .container {
+        background-image: linear-gradient(
+          to left,
+          rgb(30, 30, 99),
+          rgb(2, 2, 131)
+        );
+        width: 100%;
+        max-width: 420px;
+        border-radius: 16px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        padding: 20px;
+        margin-top: auto;
+        margin-bottom: auto;
+        font-size: larger;
+      }
 
-    .logo {
-      margin-bottom: 30px;
-      
-    }
+      .logo {
+        margin-bottom: 30px;
+      }
 
-    .logo img {
-      width: 70px;
-      height: 70px;
-      object-fit: contain;
-      margin-bottom: 10px;
-      border-radius: 35% 35% 35% 10%;
-    }
+      .logo img {
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
+        margin-bottom: 10px;
+        border-radius: 35% 35% 35% 10%;
+      }
 
-    .card {
-      margin-top: auto;
-      margin-bottom: auto;
-      background: #ffffff;
-      padding: 32px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    }
+      .Terms {
+        display: flex;
+        flex-direction: row;
+        color: rgb(79, 89, 133);
+      }
 
-    .card h2 {
-      font-size: 22px;
-      color: #1f2937;
-      margin-bottom: 8px;
-    }
+      p {
+        color: #faf8f8;
+        margin-right: 6px;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: max-content;
+      }
 
-    .card p {
-      font-size: 14px;
-      color: #6b7280;
-      margin-bottom: 24px;
-    }
+      /* Use default checkbox appearance (match login.html) */
+      #agreeTerms {
+        margin-right: 6px;
+        color: #f7f4f4;
+      }
 
-    .input-group {
-      display: flex;
-      align-items: center;
-      background-color: #cfced3;
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 16px;
-      color: #ffffff;
-    }
+      .ai {
+        padding-left: 5px;
+        text-decoration: none;
+        color: #3b82f6;
+      }
 
-    .input-group:hover{
-      background: #91b8df;
-      box-shadow: 0 0 5px 1px rgb(166, 128, 236);
-    }
+      .card p {
+        font-size: 14px;
+        color: #6b7280;
+        margin-bottom: 24px;
+      }
 
-    .input-group input {
-      border: none;
-      outline: none;
-      background: transparent;
-      width: 100%;
-      font-size: 16px;
-      color: #080808;
-      font-size: large;
-    }
+      .input-group {
+        display: flex;
+        align-items: center;
+        background-color: #cfced3;
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 16px;
+        color: #ffffff;
+        position: relative;
+      }
 
-    button {
-      width: 80%;
-      padding: 12px;
-      background: #2e4b79;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+      .input-group:hover {
+        background: #d3e0ee;
+        box-shadow: 0 0 5px 0.1px rgb(59, 54, 82);
+      }
 
-    button:hover {
-      background: #2859c5;
-    }
+      .input-group input {
+        border: none;
+        outline: none;
+        background: transparent;
+        width: 100%;
+        font-size: 16px;
+        color: #080808;
+        font-size: normal;
+      }
 
-    .footer {
-      margin-top: 20px;
-      font-size: 13px;
-      color: #f6f7f8;
-    }
+      .input-status {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 120ms ease, color 120ms ease;
+      }
+      .input-status.ok { color: #16a34a; opacity: 1; }
+      .input-status.bad { color: #dc2626; opacity: 1; }
 
-    .footer a {
-      color: #3b82f6;
-      text-decoration: none;
-      font-weight: 500;
-    }
+      button {
+        width: 80%;
+        padding: 12px;
+        background: #2e4b79;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
 
-    .footer a:hover {
-      text-decoration: wavy;
-    }
+      button:hover {
+        background: #2859c5;
+      }
+
+      .footer {
+        margin-top: 20px;
+        font-size: 13px;
+        color: #f6f7f8;
+      }
+
+      .footer a {
+        color: #3b82f6;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .footer a:hover {
+        text-decoration: wavy;
+      }
+      .Terms {
+        display: flex;
+        flex-direction: row;
+        color: rgb(249, 249, 252);
+      }
+
+      p {
+        color: #f7f4f4;
+        margin-right: 6px;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: max-content;
+      }
+      label{
+        margin-left: 5px;
+      }
   </style>
 </head>
 
@@ -152,15 +198,16 @@
       <h2>Welcome Back</h2>
       <p>Enter your credentials to access your account.</p>
 
-      <form method="post" action="#">
+      <form id="loginForm" method="post" action="#">
         <div class="input-group">
           
-          <input
-            type="text"
-            name="username"
-            placeholder="  Username"
-            required
-          >
+            <input
+              type="text"
+              name="username"
+              placeholder="  Username"
+              required
+            >
+            <span class="input-status" id="usernameStatus" aria-hidden="true"></span>
         </div>
 
         <div class="input-group">
@@ -170,9 +217,25 @@
             placeholder="  Password"
             required
           >
+          <span class="input-status" id="passwordStatus" aria-hidden="true"></span>
         </div>
 
+          <div
+              style="
+                text-align: left;
+                margin: 6px 0 12px 6px;
+                color: #faf7f7;
+                font-size: 15px;
+              "
+            >
+              <label style="cursor: pointer"></label>
+                <input id="rememberAccount" type="checkbox" >
+              <b> Remember Me </b></label
+              >
+            </div>
+
         <button type="submit">Sign In</button>
+        
       </form>
     </div>
 
@@ -182,6 +245,113 @@
     </div>
 
   </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // prefill username if a remembered account exists
+      try {
+        const remembered = localStorage.getItem('ime_remembered_user');
+        if (remembered) {
+          const usernameInput = document.querySelector('input[name="username"]');
+          if (usernameInput) usernameInput.value = remembered;
+        }
+      } catch (e) { /* ignore */ }
+
+      // live validation status icons
+      const usernameInput = document.querySelector('input[name="username"]');
+      const passwordInput = document.querySelector('input[name="password"]');
+      const usernameStatus = document.getElementById('usernameStatus');
+      const passwordStatus = document.getElementById('passwordStatus');
+
+      function readUsers() {
+        try { return JSON.parse(localStorage.getItem('ime_users') || '[]') || []; } catch (e) { return []; }
+      }
+
+      function setStatus(el, state) {
+        if (!el) return;
+        el.className = 'input-status';
+        if (state === 'ok') { el.classList.add('ok'); el.textContent = '✓'; }
+        else if (state === 'bad') { el.classList.add('bad'); el.textContent = '✖'; }
+        else { el.textContent = ''; }
+      }
+
+      function updateUsernameStatus() {
+        if (!usernameInput) return;
+        const v = (usernameInput.value || '').trim();
+        if (!v) { setStatus(usernameStatus, ''); return; }
+        const users = readUsers();
+        const found = users.some(u => u.username && u.username.toLowerCase() === v.toLowerCase());
+        setStatus(usernameStatus, found ? 'ok' : 'bad');
+      }
+
+      function updatePasswordStatus() {
+        if (!passwordInput) return;
+        const pv = (passwordInput.value || '');
+        // only validate password when a username is provided
+        const uname = (usernameInput && usernameInput.value || '').trim();
+        if (!pv || !uname) { setStatus(passwordStatus, ''); return; }
+        const users = readUsers();
+        const stored = users.find(u => u.username && u.username.toLowerCase() === uname.toLowerCase());
+        const ok = !!(stored && stored.password === pv);
+        setStatus(passwordStatus, ok ? 'ok' : 'bad');
+      }
+
+      if (usernameInput) usernameInput.addEventListener('input', () => { updateUsernameStatus(); updatePasswordStatus(); });
+      if (passwordInput) passwordInput.addEventListener('input', updatePasswordStatus);
+
+
+      const form = document.getElementById('loginForm');
+      if (!form) return;
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = (form.querySelector('input[name="username"]') || {}).value || '';
+        const password = (form.querySelector('input[name="password"]') || {}).value || '';
+
+        try {
+          // read users array
+          let users = [];
+          try { users = JSON.parse(localStorage.getItem('ime_users') || '[]'); } catch (e) { users = [] }
+          if (!Array.isArray(users) || users.length === 0) {
+            if (window.notify) {
+              notify('No local account found. Please register first.', { type: 'error', duration: 2500 });
+              setTimeout(() => window.location.href = 'signup.html', 1200);
+            } else {
+              alert('No local account found. Please register first.');
+              window.location.href = 'signup.html';
+            }
+            return;
+          }
+
+          const stored = users.find(u => u.username && u.username.toLowerCase() === username.trim().toLowerCase());
+          if (!stored) {
+            if (window.notify) notify('No account with that name. Please register.', { type: 'error' }); else alert('No account with that name. Please register.');
+            return;
+          }
+
+          if (stored.password === password) {
+            try { localStorage.setItem('ime_current_user', JSON.stringify({ username: stored.username, loggedAt: new Date().toISOString() })); } catch (err) { /* ignore */ }
+            if (window.notify) {
+              notify('Welcome back, ' + stored.username + '!', { type: 'success', duration: 5000 });
+              setTimeout(() => window.location.href = 'user-dashboard.html', 1200);
+            } else {
+              alert('Welcome back, ' + stored.username + '!');
+              window.location.href = 'user-dashboard.html';
+            }
+          } else {
+            if (window.notify) {
+              notify('Invalid username or password', { type: 'error' });
+            } else {
+              alert('Invalid username or password');
+            }
+          }
+        } catch (err) {
+          console.error('login error', err);
+          if (window.notify) notify('Unable to read stored account', { type: 'error' }); else alert('Unable to read stored account');
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
