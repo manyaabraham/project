@@ -246,112 +246,115 @@
 
   </div>
 
-  <script src="script.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // prefill username if a remembered account exists
-      try {
-        const remembered = localStorage.getItem('ime_remembered_user');
-        if (remembered) {
-          const usernameInput = document.querySelector('input[name="username"]');
-          if (usernameInput) usernameInput.value = remembered;
-        }
-      } catch (e) { /* ignore */ }
-
-      // live validation status icons
+ <script src="script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // prefill username if a remembered account exists
+  try {
+    const remembered = localStorage.getItem('ime_remembered_user');
+    if (remembered) {
       const usernameInput = document.querySelector('input[name="username"]');
-      const passwordInput = document.querySelector('input[name="password"]');
-      const usernameStatus = document.getElementById('usernameStatus');
-      const passwordStatus = document.getElementById('passwordStatus');
+      if (usernameInput) usernameInput.value = remembered;
+    }
+  } catch (e) { /* ignore */ }
 
-      function readUsers() {
-        try { return JSON.parse(localStorage.getItem('ime_users') || '[]') || []; } catch (e) { return []; }
-      }
+  // live validation status icons
+  const usernameInput = document.querySelector('input[name="username"]');
+  const passwordInput = document.querySelector('input[name="password"]');
+  const usernameStatus = document.getElementById('usernameStatus');
+  const passwordStatus = document.getElementById('passwordStatus');
 
-      function setStatus(el, state) {
-        if (!el) return;
-        el.className = 'input-status';
-        if (state === 'ok') { el.classList.add('ok'); el.textContent = '✓'; }
-        else if (state === 'bad') { el.classList.add('bad'); el.textContent = '✖'; }
-        else { el.textContent = ''; }
-      }
+  function readUsers() {
+    try { return JSON.parse(localStorage.getItem('ime_users') || '[]') || []; } catch (e) { return []; }
+  }
 
-      function updateUsernameStatus() {
-        if (!usernameInput) return;
-        const v = (usernameInput.value || '').trim();
-        if (!v) { setStatus(usernameStatus, ''); return; }
-        const users = readUsers();
-        const found = users.some(u => u.username && u.username.toLowerCase() === v.toLowerCase());
-        setStatus(usernameStatus, found ? 'ok' : 'bad');
-      }
+  function setStatus(el, state) {
+    if (!el) return;
+    el.className = 'input-status';
+    if (state === 'ok') { el.classList.add('ok'); el.textContent = '✓'; }
+    else if (state === 'bad') { el.classList.add('bad'); el.textContent = '✖'; }
+    else { el.textContent = ''; }
+  }
 
-      function updatePasswordStatus() {
-        if (!passwordInput) return;
-        const pv = (passwordInput.value || '');
-        // only validate password when a username is provided
-        const uname = (usernameInput && usernameInput.value || '').trim();
-        if (!pv || !uname) { setStatus(passwordStatus, ''); return; }
-        const users = readUsers();
-        const stored = users.find(u => u.username && u.username.toLowerCase() === uname.toLowerCase());
-        const ok = !!(stored && stored.password === pv);
-        setStatus(passwordStatus, ok ? 'ok' : 'bad');
-      }
+  function updateUsernameStatus() {
+    if (!usernameInput) return;
+    const v = (usernameInput.value || '').trim();
+    if (!v) { setStatus(usernameStatus, ''); return; }
+    const users = readUsers();
+    const found = users.some(u => u.username && u.username.toLowerCase() === v.toLowerCase());
+    setStatus(usernameStatus, found ? 'ok' : 'bad');
+  }
 
-      if (usernameInput) usernameInput.addEventListener('input', () => { updateUsernameStatus(); updatePasswordStatus(); });
-      if (passwordInput) passwordInput.addEventListener('input', updatePasswordStatus);
+  function updatePasswordStatus() {
+    if (!passwordInput) return;
+    const pv = (passwordInput.value || '');
+    const uname = (usernameInput && usernameInput.value || '').trim();
+    if (!pv || !uname) { setStatus(passwordStatus, ''); return; }
+    const users = readUsers();
+    const stored = users.find(u => u.username && u.username.toLowerCase() === uname.toLowerCase());
+    const ok = !!(stored && stored.password === pv);
+    setStatus(passwordStatus, ok ? 'ok' : 'bad');
+  }
 
+  if (usernameInput) usernameInput.addEventListener('input', () => { updateUsernameStatus(); updatePasswordStatus(); });
+  if (passwordInput) passwordInput.addEventListener('input', updatePasswordStatus);
 
-      const form = document.getElementById('loginForm');
-      if (!form) return;
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const username = (form.querySelector('input[name="username"]') || {}).value || '';
-        const password = (form.querySelector('input[name="password"]') || {}).value || '';
+  const form = document.getElementById('loginForm');
+  if (!form) return;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = (form.querySelector('input[name="username"]') || {}).value || '';
+    const password = (form.querySelector('input[name="password"]') || {}).value || '';
 
-        try {
-          // read users array
-          let users = [];
-          try { users = JSON.parse(localStorage.getItem('ime_users') || '[]'); } catch (e) { users = [] }
-          if (!Array.isArray(users) || users.length === 0) {
-            if (window.notify) {
-              notify('No local account found. Please register first.', { type: 'error', duration: 2500 });
-              setTimeout(() => window.location.href = 'signup.html', 1200);
-            } else {
-              alert('No local account found. Please register first.');
-              window.location.href = 'signup.html';
-            }
-            return;
-          }
-
-          const stored = users.find(u => u.username && u.username.toLowerCase() === username.trim().toLowerCase());
-          if (!stored) {
-            if (window.notify) notify('No account with that name. Please register.', { type: 'error' }); else alert('No account with that name. Please register.');
-            return;
-          }
-
-          if (stored.password === password) {
-            try { localStorage.setItem('ime_current_user', JSON.stringify({ username: stored.username, loggedAt: new Date().toISOString() })); } catch (err) { /* ignore */ }
-            if (window.notify) {
-              notify('Welcome back, ' + stored.username + '!', { type: 'success', duration: 5000 });
-              setTimeout(() => window.location.href = 'user-dashboard.html', 1200);
-            } else {
-              alert('Welcome back, ' + stored.username + '!');
-              window.location.href = 'user-dashboard.html';
-            }
-          } else {
-            if (window.notify) {
-              notify('Invalid username or password', { type: 'error' });
-            } else {
-              alert('Invalid username or password');
-            }
-          }
-        } catch (err) {
-          console.error('login error', err);
-          if (window.notify) notify('Unable to read stored account', { type: 'error' }); else alert('Unable to read stored account');
+    try {
+      let users = [];
+      try { users = JSON.parse(localStorage.getItem('ime_users') || '[]'); } catch (e) { users = [] }
+      if (!Array.isArray(users) || users.length === 0) {
+        if (window.notify) {
+          notify('No local account found. Please register first.', { type: 'error', duration: 2500 });
+          setTimeout(() => window.location.href = 'signup.html', 1200);
+        } else {
+          alert('No local account found. Please register first.');
+          window.location.href = 'signup.html';
         }
-      });
-    });
-  </script>
+        return;
+      }
+
+      // admin default login
+      if (username === 'imecodeadmin2025' && password === 'academyimecode2025') {
+        window.location.href = "admin-dashboard.html";
+        return;
+      }
+
+      const stored = users.find(u => u.username && u.username.toLowerCase() === username.trim().toLowerCase());
+      if (!stored) {
+        if (window.notify) notify('No account with that name. Please register.', { type: 'error' }); else alert('No account with that name. Please register.');
+        return;
+      }
+
+      if (stored.password === password) {
+        try { localStorage.setItem('ime_current_user', JSON.stringify({ username: stored.username, loggedAt: new Date().toISOString() })); } catch (err) { /* ignore */ }
+        if (window.notify) {
+          notify('Welcome back, ' + stored.username + '!', { type: 'success', duration: 5000 });
+          setTimeout(() => window.location.href = 'user-dashboard.html', 1200);
+        } else {
+          alert('Welcome back, ' + stored.username + '!');
+          window.location.href = 'user-dashboard.html';
+        }
+      } else {
+        if (window.notify) {
+          notify('Invalid username or password', { type: 'error' });
+        } else {
+          alert('Invalid username or password');
+        }
+      }
+    } catch (err) {
+      console.error('login error', err);
+      if (window.notify) notify('Unable to read stored account', { type: 'error' }); else alert('Unable to read stored account');
+    }
+  });
+});
+</script>
 
 </body>
 </html>
